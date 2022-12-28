@@ -3,6 +3,7 @@ import { useImmer } from 'use-immer';
 import { API_URL_NOW_PLAYING, API_URL_TOP_RATED } from '../../contants/movieContants';
 import styled, { css } from 'styled-components';
 import MoviesContext from '../../contexts/MoviesContext';
+import { useRouter } from 'next/router';
 
 const TabMovies = lazy(() => import('../tabs/TabMovies'));
 const SkeletonCard = lazy(() => import('../skeleton/SkeletonCard'));
@@ -60,15 +61,18 @@ const ListMoviesStyled = styled.div`
 `;
 
 function ListMovies() {
+    const {query} = useRouter();
     const moviesContext = useContext(MoviesContext);
     const {loading, movies, searchInfo, type, page} = moviesContext;
     const [ui, setUI] = useImmer(() => 'grid');
 
     useEffect(() => {
-      const a = window.innerHeight;
-      const c = document.body.offsetHeight;
-      window.addEventListener('scroll', handleInfiniteScroll);
-    });
+      if (!query?.id) {
+        const a = window.innerHeight;
+        const c = document.body.offsetHeight;
+        window.addEventListener('scroll', handleInfiniteScroll);
+      }
+    }, [query?.id]);
 
     let throttleTimer;
     const throttle = (callback, time) => {
