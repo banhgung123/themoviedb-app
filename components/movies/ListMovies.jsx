@@ -67,8 +67,6 @@ function ListMovies() {
     const [ui, setUI] = useImmer(() => 'grid');
 
     useEffect(() => {
-      const a = window.innerHeight;
-      const c = document.body.offsetHeight;
       if (query?.id) removeInfiniteScroll();
       else window.addEventListener('scroll', handleInfiniteScroll);
     });
