@@ -40,11 +40,7 @@ const DetailStyled = styled.div`
   @media screen and (max-width: 425px) {
     flex-direction: column;
     justify-content: center;
-
-    img {
-      display: block;
-      margin-left: 10px;
-    }
+    align-items: center;
   }
 `;
 
